@@ -58,39 +58,73 @@ namespace Internship_2_C_Sharp
                 { "00123456789", ("Silvana Sanader", new DateTime(1965, 1, 28)) }
             };
 
-            Console.WriteLine("Odaberite akciju: ");
 
-            foreach (var izbor in GlavniIzbornik)
-                Console.WriteLine(izbor.Key + " " + izbor.Value);
+            var VracanjeNaGlavniIzbornik = true;
 
-            var KriviUnos = -1;
-            var OdabranaAkcija = int.TryParse(Console.ReadLine(), out KriviUnos);
+            do
+            {
+                Console.WriteLine("Odaberite akciju: ");
 
-            bool VracanjeNaGlavniIzbornik = true;
+                foreach (var izbor in GlavniIzbornik)
+                    Console.WriteLine(izbor.Key + " " + izbor.Value);
 
-            while (VracanjeNaGlavniIzbornik == true)
-            { 
-                switch(OdabranaAkcija)
+                var Unos = Console.ReadLine();
+                var OdabranaAkcija = ProvjeraUnosa(Unos);
+
+
+                switch (OdabranaAkcija)
                 {
                     case 1:
-                        {
-
-                        }
+                        Console.Clear();
+                        foreach (var izbor in Podizbornik1)
+                            Console.WriteLine(izbor.Key + " " + izbor.Value);
+                        var DodatniUnos = Console.ReadLine();
+                        var IducaOdabranaAkcija = ProvjeraUnosa(DodatniUnos);
+                        break;
                     case 2:
+                        Console.Clear();
+                        Console.WriteLine("Unesi OIB:");
+                        var OIB = Console.ReadLine();
+                        Console.WriteLine(PretragaPoOIBU(OIB, PopisStanovnika));
+                        break;
                     case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                    case 9:
-                    case 0:
-                    case -1:
+                        break;
+    
+
 
                 }
-                    
 
-            };
+            } while (VracanjeNaGlavniIzbornik = true);
+
+
+
+
+
+
+
+
         }
-    }
+        static int ProvjeraUnosa(string Unos)
+        {
+            var KriviUnos = -1;
+            var PokusajOdabraneAkcije = int.TryParse(Unos, out KriviUnos);
+
+
+            if (!PokusajOdabraneAkcije)
+                return KriviUnos;
+            else
+                return int.Parse(Unos);
+        }
+        static string PretragaPoOIBU(string OIB, Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var TrazenaOsoba = (nameAndSurname: "Osoba nije unesena u sustav", dateOfBirth: new DateTime(2000, 1, 1));
+
+            foreach (var osoba in PopisStanovnika)
+            {
+                if (osoba.Key == OIB)
+                    TrazenaOsoba = (osoba.Value);
+            }
+            return TrazenaOsoba.nameAndSurname;
+        }
+    }   
 }
