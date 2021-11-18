@@ -78,16 +78,49 @@ namespace Internship_2_C_Sharp
                         Console.Clear();
                         foreach (var izbor in Podizbornik1)
                             Console.WriteLine(izbor.Key + " " + izbor.Value);
+
                         var DodatniUnos = Console.ReadLine();
                         var IducaOdabranaAkcija = ProvjeraUnosa(DodatniUnos);
+
+                        switch (IducaOdabranaAkcija)
+                        {
+                            case 1:
+                                var TrazenaOsoba1 = (nameAndSurname: "Nitko", dateOfBirth: new DateTime(2020, 1, 1));
+                                foreach (KeyValuePair<string, (string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika)
+                                {
+                                    TrazenaOsoba1 = osoba.Value;
+                                    Console.WriteLine(TrazenaOsoba1.nameAndSurname);
+                                }
+                                break;
+                            case 2:
+                                break;
+                        }
                         break;
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Unesi OIB:");
+
                         var OIB = Console.ReadLine();
                         Console.WriteLine(PretragaPoOIBU(OIB, PopisStanovnika));
                         break;
                     case 3:
+                        Console.Clear();
+                        Console.WriteLine("Unesi ime i prezime: ");
+
+                        var ImeIPrezime = Console.ReadLine();
+
+                        Console.WriteLine("Unesi godinu, mjesec i dan rođenja (jedno ispod drugog): ");
+                        var godina = int.Parse(Console.ReadLine());
+                        var mjesec = int.Parse(Console.ReadLine());
+                        var dan = int.Parse(Console.ReadLine());
+
+                        var TrazenaOsoba = (nameAndSurname: ImeIPrezime, dateOfBirth: new DateTime(godina, mjesec, dan));
+
+                        foreach(var osoba in PopisStanovnika)
+                        {
+                            if (osoba.Value == TrazenaOsoba)
+                                Console.WriteLine(osoba.Key);
+                        }
                         break;
     
 
@@ -126,5 +159,19 @@ namespace Internship_2_C_Sharp
             }
             return TrazenaOsoba.nameAndSurname;
         }
+        /////static Array SortiraniDatumi(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        /////{
+        /////    var Datumi = new List<DateTime>();
+        //    var TrazenaOsoba = (nameAndSurname: "None", dateOfBirth: new DateTime(2000, 1, 1));
+
+        //    foreach (var osoba in PopisStanovnika)
+        //    {
+        //        TrazenaOsoba = osoba.Value;
+        //        Datumi.Add(TrazenaOsoba.dateOfBirth);
+        //    }
+
+        //    var SortiraniDatumi = new List<DateTime>();
+        ////    var datum = Datumi[0];
+        //}
     }   
 }
