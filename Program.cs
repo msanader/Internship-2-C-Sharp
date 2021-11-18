@@ -7,8 +7,6 @@ namespace Internship_2_C_Sharp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Odaberite akciju: ");
-
             var GlavniIzbornik = new Dictionary<int, string>
             {
                 { 1, "Ispis stanovništva" },
@@ -51,6 +49,47 @@ namespace Internship_2_C_Sharp
                 { 8, "Prosječan broj godina" },
                 { 9, "Medijan godina" },
                 { 0, "Povratak na glavni izbornik" }
+            };
+
+            var PopisStanovnika = new Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)>()
+            {
+                { "12345678901", ("Mirna Sanader", new DateTime(2003, 8, 19)) },
+                { "01234567891", ("Anita Sanader", new DateTime(2001, 2, 11)) },
+                { "00123456789", ("Silvana Sanader", new DateTime(1965, 1, 28)) }
+            };
+
+            Console.WriteLine("Odaberite akciju: ");
+
+            foreach (var izbor in GlavniIzbornik)
+                Console.WriteLine(izbor.Key + " " + izbor.Value);
+
+            var KriviUnos = -1;
+            var OdabranaAkcija = int.TryParse(Console.ReadLine(), out KriviUnos);
+
+            bool VracanjeNaGlavniIzbornik = true;
+
+            while (VracanjeNaGlavniIzbornik == true)
+            { 
+                switch(OdabranaAkcija)
+                {
+                    case 1:
+                        {
+
+                        }
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 0:
+                    case -1:
+
+                }
+                    
+
             };
         }
     }
