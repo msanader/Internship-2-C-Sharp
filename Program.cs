@@ -121,12 +121,22 @@ namespace Internship_2_C_Sharp
                         {
                             if (osoba.Value == TrazenaOsoba)
                                 brojac += 1;
-                            Console.WriteLine(osoba.Key);
                             
                         }
-
-                        if (brojac == 0)
-                            Console.WriteLine("Osoba koju tražite nije unesena u sustav!");
+                        switch (brojac) 
+                        {
+                            case 0:
+                                Console.WriteLine("Osoba koju tražite nije unesena u sustav!");
+                                break;
+                            default:
+                                foreach (var osoba in PopisStanovnika)
+                                {
+                                    if (osoba.Value == TrazenaOsoba)
+                                        Console.WriteLine(osoba.Key);
+                                }
+                                break;
+                        }
+                        
 
                         break;
                     case 4:
@@ -269,6 +279,7 @@ namespace Internship_2_C_Sharp
                         }
                         break;
                     case 7:
+                        Console.Clear();
                         Console.WriteLine("Želite li potvrditi radnju? DA/NE");
 
                         odgovor = -1;
@@ -288,8 +299,126 @@ namespace Internship_2_C_Sharp
                         else
                             break;
                         break;
+                    case 8:
+                        Console.Clear();
+                        foreach (var izbor in Podizbornik8)
+                            Console.WriteLine(izbor.Key + " " + izbor.Value);
+
+                        DodatniUnos = Console.ReadLine();
+                        IducaOdabranaAkcija = ProvjeraUnosa(DodatniUnos);
+
+                        switch (IducaOdabranaAkcija)
+                        {
+                            case 1:
+                                Console.Clear();
+                                Console.WriteLine("Želite li potvrditi radnju? DA/NE");
+
+                                odgovor = -1;
+
+                                do
+                                {
+                                    var Potvrda = Console.ReadLine();
+                                    odgovor = PotvrdaRadnje(Potvrda);
+
+                                } while (odgovor < 0);
+
+                                if (odgovor == 1)
+                                    Console.WriteLine("Unesite OIB osobe na kojoj želiti izvršiti promjene: ");
+                                    OIB = Console.ReadLine();
+
+                                    Console.WriteLine("Unesite novi OIB: ");
+                                    var noviOIB = Console.ReadLine();
+                                    var OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000,10,10));
+
+                                    foreach (var osoba in PopisStanovnika)
+                                    {
+                                        if (OIB == osoba.Key)
+                                            OsobaZaPromjene = osoba.Value;
+
+                                    }
+
+                                    PopisStanovnika.Remove(OIB);
+                                    PopisStanovnika.Add(noviOIB, OsobaZaPromjene);
+                                
+                                break;
+                            case 2:
+                                Console.Clear();
+                                Console.WriteLine("Želite li potvrditi radnju? DA/NE");
+
+                                odgovor = -1;
+
+                                do
+                                {
+                                    var Potvrda = Console.ReadLine();
+                                    odgovor = PotvrdaRadnje(Potvrda);
+
+                                } while (odgovor < 0);
+
+                                if (odgovor == 1)
+                                    Console.WriteLine("Unesite OIB osobe na kojoj želiti izvršiti promjene: ");
+                                    OIB = Console.ReadLine();
+
+                                    Console.WriteLine("Unesite novi ime i prezime: ");
+                                    var novoImeIPrezime = Console.ReadLine();
+                                    OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
+                                    var datum = new DateTime();
+
+                                    foreach (var osoba in PopisStanovnika)
+                                    {
+                                        if (OIB == osoba.Key)
+                                            OsobaZaPromjene = osoba.Value;
+                                            datum = OsobaZaPromjene.dateOfBirth;
+                                            OsobaZaPromjene = (novoImeIPrezime, datum);
+                                    }
+
+                                    PopisStanovnika.Remove(OIB);
+                                    PopisStanovnika.Add(OIB, OsobaZaPromjene);
+
+                                break;
+                            case 3:
+                                Console.Clear();
+                                Console.WriteLine("Želite li potvrditi radnju? DA/NE");
+
+                                odgovor = -1;
+
+                                do
+                                {
+                                    var Potvrda = Console.ReadLine();
+                                    odgovor = PotvrdaRadnje(Potvrda);
+
+                                } while (odgovor < 0);
+
+                                if (odgovor == 1)
+                                    Console.WriteLine("Unesite OIB osobe na kojoj želiti izvršiti promjene: ");
+                                    OIB = Console.ReadLine();
+
+                                    Console.WriteLine("Unesite novi datum (godinu, mjesec i dan rođenja jedno ispod drugog): ");
+                                    godina = int.Parse(Console.ReadLine());
+                                    mjesec = int.Parse(Console.ReadLine());
+                                    dan = int.Parse(Console.ReadLine());
+                                    datum = new DateTime(godina, mjesec, dan);
+                                    OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
+                                    ImeIPrezime = "";
+
+                                foreach (var osoba in PopisStanovnika)
+                                {
+                                    if (OIB == osoba.Key)
+                                        OsobaZaPromjene = osoba.Value;
+                                        ImeIPrezime = OsobaZaPromjene.nameAndSurname;
+                                        OsobaZaPromjene = (ImeIPrezime, datum);
+                                }
+
+                                PopisStanovnika.Remove(OIB);
+                                PopisStanovnika.Add(OIB, OsobaZaPromjene);
+                                break;
+                            case 0:
+                                Console.Clear();
+                                break;  
+                        }
+                        break;
 
                     case 0:
+                        Console.Clear();
                         VracanjeNaGlavniIzbornik = false;
                         break;
 
@@ -356,7 +485,7 @@ namespace Internship_2_C_Sharp
                     return -1;
             }
         }
-         
+        
     }
 }
     
