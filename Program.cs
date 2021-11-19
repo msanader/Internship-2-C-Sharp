@@ -111,6 +111,8 @@ namespace Internship_2_C_Sharp
                             case 0:
                                 Console.Clear();
                                 break;
+                            default:
+                                break;
                         }
                         break;
                     case 2:
@@ -441,28 +443,63 @@ namespace Internship_2_C_Sharp
                                 else
                                     break;
                                 break;
+                          
                             case 0:
                                 Console.Clear();
-                                break;  
+                                break;
+                            default:
+                                break;
                         }
                         break;
+                    case 9:
+                        Console.Clear();
+                        foreach (var izbor in Podizbornik9)
+                            Console.WriteLine(izbor.Key + " " + izbor.Value);
 
+                        DodatniUnos = Console.ReadLine();
+                        IducaOdabranaAkcija = ProvjeraUnosa(DodatniUnos);
+
+                        switch (IducaOdabranaAkcija)
+                        {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                break;
+                            case 7:
+                                break;
+                            case 8:
+                                Console.Clear();
+                                Console.WriteLine(ProsjekGodina(PopisStanovnika));
+                                break;
+                            case 9:
+                                Console.Clear();
+                                Console.WriteLine(Medijan(PopisStanovnika));
+                                break;
+                            case 0:
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
                     case 0:
                         Console.Clear();
                         VracanjeNaGlavniIzbornik = false;
                         break;
-
+                    default:
+                        break;
 
 
                 }
 
             }
-
-     
-        
-
-
-
 
 
         }
@@ -501,7 +538,48 @@ namespace Internship_2_C_Sharp
                     return -1;
             }
         }
-        
+        static double ProsjekGodina(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var Godine = new List<int>();
+
+            foreach (var osoba in PopisStanovnika)
+            {
+                Godine.Add(2021 - osoba.Value.dateOfBirth.Year);
+
+            }
+
+            double brojac = 0;
+
+            for (var i = 0; i < Godine.Count; i++)
+            {
+                brojac += Godine[i];
+            }
+
+            double prosjek = brojac / Godine.Count;
+            prosjek = Math.Round(prosjek, 2);
+
+            return prosjek;
+
+        }
+        static int Medijan(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var Godine = new List<int>();
+
+            foreach (var osoba in PopisStanovnika)
+            {
+                Godine.Add(2021 - osoba.Value.dateOfBirth.Year);
+
+            }
+
+            Godine.Sort();
+
+            if (Godine.Count % 2 == 1)
+                return Godine[(Godine.Count - 1) / 2];
+            else
+                return Godine[(Godine.Count - 2) / 2];
+
+
+        }
     }
 }
     
