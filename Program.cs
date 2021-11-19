@@ -165,14 +165,10 @@ namespace Internship_2_C_Sharp
                             var noviDan = int.Parse(Console.ReadLine());
 
                             PopisStanovnika.Add(noviOIB, (novoImeIPrezime, new DateTime(novaGodina, noviMjesec, noviDan)));
-
                         }
 
-
-
-
                         break;
-
+                    
 
 
 
@@ -180,8 +176,8 @@ namespace Internship_2_C_Sharp
 
             } while (VracanjeNaGlavniIzbornik = true);
 
-
-
+     
+        
 
 
 
