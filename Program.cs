@@ -462,6 +462,11 @@ namespace Internship_2_C_Sharp
                         switch (IducaOdabranaAkcija)
                         {
                             case 1:
+                                Console.Clear();
+
+                                List<Double> udio = UdioZaposlenosti(PopisStanovnika);
+                                Console.WriteLine(udio[0] + "% je zaposlenih, a " + udio[1] + "% nezaposlenih");
+
                                 break;
                             case 2:
                                 break;
@@ -484,6 +489,7 @@ namespace Internship_2_C_Sharp
                                 Console.WriteLine(Medijan(PopisStanovnika));
                                 break;
                             case 0:
+                                Console.Clear();
                                 break;
                             default:
                                 break;
@@ -578,6 +584,30 @@ namespace Internship_2_C_Sharp
             else
                 return Godine[(Godine.Count - 2) / 2];
 
+        }
+        static List<double> UdioZaposlenosti(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var Godine = new List<int>();
+
+            foreach (var osoba in PopisStanovnika)
+            {
+                Godine.Add(2021 - osoba.Value.dateOfBirth.Year);
+
+            }
+
+            double zaposleni = 0;
+
+            for (var i = 0; i < Godine.Count; i++)
+            {
+                if (Godine[i] >= 23 && Godine[i] <= 65)
+                    zaposleni += 1;
+            }
+
+            var udio = new List<double>();
+            udio.Add(Math.Round((zaposleni / Godine.Count) * 100, 2));
+            udio.Add(Math.Round(100 - udio[0], 2));
+
+            return udio;
 
         }
     }
