@@ -115,14 +115,65 @@ namespace Internship_2_C_Sharp
                         var dan = int.Parse(Console.ReadLine());
 
                         var TrazenaOsoba = (nameAndSurname: ImeIPrezime, dateOfBirth: new DateTime(godina, mjesec, dan));
+                        var brojac = 0;
 
-                        foreach(var osoba in PopisStanovnika)
+                        foreach (var osoba in PopisStanovnika)
                         {
                             if (osoba.Value == TrazenaOsoba)
-                                Console.WriteLine(osoba.Key);
+                                brojac += 1;
+                            Console.WriteLine(osoba.Key);
+                            
                         }
+
+                        if (brojac == 0)
+                            Console.WriteLine("Osoba koju tražite nije unesena u sustav!");
+
                         break;
-    
+                    case 4:
+                        Console.Clear();
+                        Console.WriteLine("Želite li potvrditi radnju? DA/NE");
+
+                        var odgovor = -1;
+
+                        do
+                        {
+                            var Potvrda = Console.ReadLine();
+                            odgovor = PotvrdaRadnje(Potvrda);
+
+                        } while (odgovor < 0);
+
+                        if (odgovor == 0)
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Unesite OIB:");
+                            var noviOIB = Console.ReadLine();
+
+                            foreach (var osoba in PopisStanovnika)
+                            {
+                                if (noviOIB == osoba.Key)
+                                    Console.WriteLine("Osoba je već popisana!");
+                                    break;
+                            }
+
+                            Console.WriteLine("Unesite ime i prezime:");
+                            var novoImeIPrezime = Console.ReadLine();
+
+                            Console.WriteLine("Unesite godinu, mjesec i dan rođenja (jedno ispod drugog)");
+                            var novaGodina = int.Parse(Console.ReadLine());
+                            var noviMjesec = int.Parse(Console.ReadLine());
+                            var noviDan = int.Parse(Console.ReadLine());
+
+                            PopisStanovnika.Add(noviOIB, (novoImeIPrezime, new DateTime(novaGodina, noviMjesec, noviDan)));
+
+                        }
+
+
+
+
+                        break;
+
+
 
 
                 }
@@ -173,5 +224,20 @@ namespace Internship_2_C_Sharp
         //    var SortiraniDatumi = new List<DateTime>();
         ////    var datum = Datumi[0];
         //}
-    }   
+        static int PotvrdaRadnje(string Unos)
+        {
+            switch (Unos)
+            {
+                case "DA":
+                    return 1;
+                case "NE":
+                    return 0;
+                default:
+                    Console.WriteLine("Niste ispravno unijeli. Pokušajte ponovo!");
+                    return -1;
+            }
+        }
+         
+    }
 }
+    
