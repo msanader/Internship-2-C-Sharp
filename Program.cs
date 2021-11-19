@@ -261,7 +261,7 @@ namespace Internship_2_C_Sharp
                                     brojac += 1;
 
                             }
-                            Console.WriteLine(brojac);
+                            
 
                             switch (brojac)
                             {
@@ -340,12 +340,13 @@ namespace Internship_2_C_Sharp
                                 } while (odgovor < 0);
 
                                 if (odgovor == 1)
+                                {
                                     Console.WriteLine("Unesite OIB osobe na kojoj želiti izvršiti promjene: ");
                                     OIB = Console.ReadLine();
 
                                     Console.WriteLine("Unesite novi OIB: ");
                                     var noviOIB = Console.ReadLine();
-                                    var OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000,10,10));
+                                    var OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
 
                                     foreach (var osoba in PopisStanovnika)
                                     {
@@ -356,7 +357,10 @@ namespace Internship_2_C_Sharp
 
                                     PopisStanovnika.Remove(OIB);
                                     PopisStanovnika.Add(noviOIB, OsobaZaPromjene);
-                                
+                                }
+                                else
+                                    break;
+
                                 break;
                             case 2:
                                 Console.Clear();
@@ -372,24 +376,29 @@ namespace Internship_2_C_Sharp
                                 } while (odgovor < 0);
 
                                 if (odgovor == 1)
+                                {
                                     Console.WriteLine("Unesite OIB osobe na kojoj želiti izvršiti promjene: ");
                                     OIB = Console.ReadLine();
 
                                     Console.WriteLine("Unesite novi ime i prezime: ");
                                     var novoImeIPrezime = Console.ReadLine();
-                                    OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
-                                    var datum = new DateTime();
+                                    var OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
+                                    var datum1 = new DateTime();
 
                                     foreach (var osoba in PopisStanovnika)
                                     {
                                         if (OIB == osoba.Key)
                                             OsobaZaPromjene = osoba.Value;
-                                            datum = OsobaZaPromjene.dateOfBirth;
-                                            OsobaZaPromjene = (novoImeIPrezime, datum);
+                                        datum1 = OsobaZaPromjene.dateOfBirth;
+                                        OsobaZaPromjene = (novoImeIPrezime, datum1);
                                     }
 
                                     PopisStanovnika.Remove(OIB);
                                     PopisStanovnika.Add(OIB, OsobaZaPromjene);
+
+                                }
+                                else
+                                    break;
 
                                 break;
                             case 3:
@@ -406,6 +415,7 @@ namespace Internship_2_C_Sharp
                                 } while (odgovor < 0);
 
                                 if (odgovor == 1)
+                                {
                                     Console.WriteLine("Unesite OIB osobe na kojoj želiti izvršiti promjene: ");
                                     OIB = Console.ReadLine();
 
@@ -413,20 +423,23 @@ namespace Internship_2_C_Sharp
                                     godina = int.Parse(Console.ReadLine());
                                     mjesec = int.Parse(Console.ReadLine());
                                     dan = int.Parse(Console.ReadLine());
-                                    datum = new DateTime(godina, mjesec, dan);
-                                    OsobaZaPromjene = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
+                                    var datum = new DateTime(godina, mjesec, dan);
+                                    var OsobaZaPromjene1 = (nameAndSurname: "Neko ime", dateOfBirth: new DateTime(1000, 10, 10));
                                     ImeIPrezime = "";
 
-                                foreach (var osoba in PopisStanovnika)
-                                {
-                                    if (OIB == osoba.Key)
-                                        OsobaZaPromjene = osoba.Value;
-                                        ImeIPrezime = OsobaZaPromjene.nameAndSurname;
-                                        OsobaZaPromjene = (ImeIPrezime, datum);
-                                }
+                                    foreach (var osoba in PopisStanovnika)
+                                    {
+                                        if (OIB == osoba.Key)
+                                            OsobaZaPromjene1 = osoba.Value;
+                                        ImeIPrezime = OsobaZaPromjene1.nameAndSurname;
+                                        OsobaZaPromjene1 = (ImeIPrezime, datum);
+                                    }
 
-                                PopisStanovnika.Remove(OIB);
-                                PopisStanovnika.Add(OIB, OsobaZaPromjene);
+                                    PopisStanovnika.Remove(OIB);
+                                    PopisStanovnika.Add(OIB, OsobaZaPromjene1);
+                                }
+                                else
+                                    break;
                                 break;
                             case 0:
                                 Console.Clear();
