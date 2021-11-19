@@ -268,7 +268,26 @@ namespace Internship_2_C_Sharp
                             }
                         }
                         break;
+                    case 7:
+                        Console.WriteLine("Želite li potvrditi radnju? DA/NE");
 
+                        odgovor = -1;
+
+                        do
+                        {
+                            var Potvrda = Console.ReadLine();
+                            odgovor = PotvrdaRadnje(Potvrda);
+
+                        } while (odgovor < 0);
+
+                        if (odgovor == 1)
+                            foreach (var osoba in PopisStanovnika)
+                            {
+                                PopisStanovnika.Remove(osoba.Key);
+                            }
+                        else
+                            break;
+                        break;
 
                     case 0:
                         VracanjeNaGlavniIzbornik = false;
