@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Internship_2_C_Sharp
 {
@@ -24,7 +25,7 @@ namespace Internship_2_C_Sharp
             var Podizbornik1 = new Dictionary<int, string>
             {
                 { 1, "Onako kako su spremljeni" },
-                { 2, "Onako kako su spremljeni" },
+                { 2, "Po datumu rođenja uzlazno" },
                 { 3, "Po datumu rođenja silazno" },
                 { 0, "Povratak na glavni izbornik" }
             };
@@ -85,6 +86,7 @@ namespace Internship_2_C_Sharp
                         switch (IducaOdabranaAkcija)
                         {
                             case 1:
+                                Console.Clear();
                                 var TrazenaOsoba1 = (nameAndSurname: "Nitko", dateOfBirth: new DateTime(2020, 1, 1));
                                 foreach (KeyValuePair<string, (string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika)
                                 {
@@ -93,6 +95,21 @@ namespace Internship_2_C_Sharp
                                 }
                                 break;
                             case 2:
+                                Console.Clear();
+                                foreach (KeyValuePair<string, (string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika.OrderBy(p => p.Value.dateOfBirth))
+                                {
+                                    Console.WriteLine(osoba.Value.nameAndSurname);
+                                }
+                                break;
+                            case 3:
+                                Console.Clear();
+                                foreach (KeyValuePair<string,(string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika.OrderByDescending(p => p.Value.dateOfBirth))
+                                {
+                                    Console.WriteLine(osoba.Value.nameAndSurname);
+                                }
+                                break;
+                            case 0:
+                                Console.Clear();
                                 break;
                         }
                         break;
@@ -458,20 +475,6 @@ namespace Internship_2_C_Sharp
             }
             return TrazenaOsoba.nameAndSurname;
         }
-        /////static Array SortiraniDatumi(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
-        /////{
-        /////    var Datumi = new List<DateTime>();
-        //    var TrazenaOsoba = (nameAndSurname: "None", dateOfBirth: new DateTime(2000, 1, 1));
-
-        //    foreach (var osoba in PopisStanovnika)
-        //    {
-        //        TrazenaOsoba = osoba.Value;
-        //        Datumi.Add(TrazenaOsoba.dateOfBirth);
-        //    }
-
-        //    var SortiraniDatumi = new List<DateTime>();
-        ////    var datum = Datumi[0];
-        //}
         static int PotvrdaRadnje(string Unos)
         {
             switch (Unos)
