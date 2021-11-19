@@ -61,7 +61,7 @@ namespace Internship_2_C_Sharp
 
             var VracanjeNaGlavniIzbornik = true;
 
-            do
+            while(VracanjeNaGlavniIzbornik)
             {
                 Console.WriteLine("Odaberite akciju: ");
 
@@ -146,7 +146,7 @@ namespace Internship_2_C_Sharp
                             break;
                         else
                         {
-                            Console.WriteLine("Unesite OIB:");
+                            Console.WriteLine("Unesite OIB osobe koju želite unijeti:");
                             var noviOIB = Console.ReadLine();
 
                             foreach (var osoba in PopisStanovnika)
@@ -168,13 +168,117 @@ namespace Internship_2_C_Sharp
                         }
 
                         break;
-                    
+                    case 5:
+
+                        Console.Clear();
+                        Console.WriteLine("Unesite OIB osobe koju želite izbrisati:");
+                        var OIBZaIzbrisati = Console.ReadLine();
+
+                        Console.WriteLine("Želite li potvrditi radnju? DA/NE");
+
+                        odgovor = -1;
+
+                        do
+                        {
+                            var Potvrda = Console.ReadLine();
+                            odgovor = PotvrdaRadnje(Potvrda);
+
+                        } while (odgovor < 0);
+
+                        if (odgovor == 0)
+                            break;
+                        else
+                        {
+                            if (!PopisStanovnika.ContainsKey(OIBZaIzbrisati))
+                                Console.WriteLine("Osoba koju želite izbrisati nije popisana!");
+
+                            foreach (var osoba in PopisStanovnika)
+                            {
+                                if (OIBZaIzbrisati == osoba.Key)
+                                    PopisStanovnika.Remove(OIBZaIzbrisati);
+
+                            }
+
+                        }
+                        break;
+                    case 6:
+                        Console.Clear();
+                        Console.WriteLine("Unesi ime i prezime osobe koje želite izbrisati: ");
+
+                        ImeIPrezime = Console.ReadLine();
+
+                        Console.WriteLine("Unesi godinu, mjesec i dan rođenja (jedno ispod drugog) osobe koje želite izbrisati: ");
+                        godina = int.Parse(Console.ReadLine());
+                        mjesec = int.Parse(Console.ReadLine());
+                        dan = int.Parse(Console.ReadLine());
+
+                        TrazenaOsoba = (nameAndSurname: ImeIPrezime, dateOfBirth: new DateTime(godina, mjesec, dan));
+                        brojac = 0;
+
+                        Console.WriteLine("Želite li potvrditi radnju? DA/NE");
+
+                        odgovor = -1;
+
+                        do
+                        {
+                            var Potvrda = Console.ReadLine();
+                            odgovor = PotvrdaRadnje(Potvrda);
+
+                        } while (odgovor < 0);
+
+                        if (odgovor > 0)
+                        {
+                            foreach (var osoba in PopisStanovnika)
+                            {
+                                if (TrazenaOsoba == osoba.Value)
+                                    brojac += 1;
+
+                            }
+                            Console.WriteLine(brojac);
+
+                            switch (brojac)
+                            {
+                                case 1:
+                                    foreach (var osoba in PopisStanovnika)
+                                    {
+                                        if (TrazenaOsoba == osoba.Value)
+                                            PopisStanovnika.Remove(osoba.Key);
+                                    }
+                                    break;
+                                case 0:
+                                    Console.WriteLine("Osoba koju želite izbrisati nije popisana!");
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Ima više osoba s tim imenom. Unesite OIB osobe koje želite izbrisati:");
+
+                                    foreach (var osoba in PopisStanovnika)
+                                    {
+                                        if (TrazenaOsoba == osoba.Value)
+                                            Console.WriteLine(osoba.Key + " " + TrazenaOsoba.nameAndSurname);
+                                    }
+
+                                    OIBZaIzbrisati = Console.ReadLine();
+                                    if (PopisStanovnika.ContainsKey(OIBZaIzbrisati))
+                                        PopisStanovnika.Remove(OIBZaIzbrisati);
+                                    else
+                                        Console.WriteLine("Niste unijeli točan OIB");
+                                    break;
+
+                            }
+                        }
+                        break;
+
+
+                    case 0:
+                        VracanjeNaGlavniIzbornik = false;
+                        break;
 
 
 
                 }
 
-            } while (VracanjeNaGlavniIzbornik = true);
+            }
 
      
         
