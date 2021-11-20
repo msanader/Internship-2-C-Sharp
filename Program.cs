@@ -40,10 +40,10 @@ namespace Internship_2_C_Sharp
 
             var Podizbornik9 = new Dictionary<int, string>
             {
-                { 1, "Postotak nezaposlenih (od 0 do 23 godine i od 65 do 100 godine) i postotak zaposlenih (od 23 do 65 godine)" },
+                { 1, "Postotak nezaposlenih i postotak zaposlenih" },
                 { 2, "Ispis najčešćeg imena i koliko ga stanovnika ima" },
                 { 3, "Ispis najčešćeg prezimena i koliko ga stanovnika ima" },
-                { 4, "Ispis datum na koji je rođen najveći broj ljudi i koji je to datum" },
+                { 4, "Ispis datum na koji je rođen najveći broj ljudi i koliko je stanovninka rođeno na taj dan" },
                 { 5, "Ispis broja ljudi rođenih u svakom od godišnjih doba" },
                 { 6, "Ispis najmlađeg stanovnika" },
                 { 7, "Ispis najstarijeg stanovnika" },
@@ -477,6 +477,8 @@ namespace Internship_2_C_Sharp
                                 Console.WriteLine(NajcescePrezime(PopisStanovnika));
                                 break;
                             case 4:
+                                Console.Clear();
+                                Console.WriteLine(NajcesciDatum(PopisStanovnika));
                                 break;
                             case 5:
                                 break;
@@ -668,7 +670,33 @@ namespace Internship_2_C_Sharp
 
             return rezultat;
         }
+        static string NajcesciDatum(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var datum = new List<DateTime>();
+
+            foreach (var osoba in PopisStanovnika)
+            {
+                datum.Add(osoba.Value.dateOfBirth);
+
+            }
+
+            var najcesciDatum = (from i in datum
+                                 group i by i into grp
+                                 orderby grp.Count() descending
+                                 select grp.Key).First();
+            var koliko = 0;
+
+            foreach (var osoba in datum)
+            {
+                if (najcesciDatum == osoba)
+                    koliko += 1;
+            }
+            string rezultat = najcesciDatum.Day + "." + najcesciDatum.Month + "." + najcesciDatum.Year + "." + " " + koliko;
+
+            return rezultat;
+        }
     }
 }
+
 
     
