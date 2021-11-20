@@ -62,7 +62,7 @@ namespace Internship_2_C_Sharp
 
             var VracanjeNaGlavniIzbornik = true;
 
-            while(VracanjeNaGlavniIzbornik)
+            while (VracanjeNaGlavniIzbornik)
             {
                 Console.WriteLine("Odaberite akciju: ");
 
@@ -103,7 +103,7 @@ namespace Internship_2_C_Sharp
                                 break;
                             case 3:
                                 Console.Clear();
-                                foreach (KeyValuePair<string,(string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika.OrderByDescending(p => p.Value.dateOfBirth))
+                                foreach (KeyValuePair<string, (string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika.OrderByDescending(p => p.Value.dateOfBirth))
                                 {
                                     Console.WriteLine(osoba.Value.nameAndSurname);
                                 }
@@ -140,9 +140,9 @@ namespace Internship_2_C_Sharp
                         {
                             if (osoba.Value == TrazenaOsoba)
                                 brojac += 1;
-                            
+
                         }
-                        switch (brojac) 
+                        switch (brojac)
                         {
                             case 0:
                                 Console.WriteLine("Osoba koju tražite nije unesena u sustav!");
@@ -155,7 +155,7 @@ namespace Internship_2_C_Sharp
                                 }
                                 break;
                         }
-                        
+
 
                         break;
                     case 4:
@@ -182,7 +182,7 @@ namespace Internship_2_C_Sharp
                             {
                                 if (noviOIB == osoba.Key)
                                     Console.WriteLine("Osoba je već popisana!");
-                                    break;
+                                break;
                             }
 
                             Console.WriteLine("Unesite ime i prezime:");
@@ -263,7 +263,7 @@ namespace Internship_2_C_Sharp
                                     brojac += 1;
 
                             }
-                            
+
 
                             switch (brojac)
                             {
@@ -443,7 +443,7 @@ namespace Internship_2_C_Sharp
                                 else
                                     break;
                                 break;
-                          
+
                             case 0:
                                 Console.Clear();
                                 break;
@@ -465,12 +465,16 @@ namespace Internship_2_C_Sharp
                                 Console.Clear();
 
                                 List<Double> udio = UdioZaposlenosti(PopisStanovnika);
-                                Console.WriteLine(udio[0] + "% je zaposlenih, a " + udio[1] + "% nezaposlenih");
+                                Console.WriteLine(udio[0] + "% je zaposlenih, a " + udio[1] + "% nezaposlenih.");
 
                                 break;
                             case 2:
+                                Console.Clear();
+                                Console.WriteLine(NajcesceIme(PopisStanovnika));
                                 break;
                             case 3:
+                                Console.Clear();
+                                Console.WriteLine(NajcescePrezime(PopisStanovnika));
                                 break;
                             case 4:
                                 break;
@@ -610,6 +614,61 @@ namespace Internship_2_C_Sharp
             return udio;
 
         }
+        static string NajcesceIme(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var ime = new List<string>();
+
+            foreach (var osoba in PopisStanovnika)
+            {
+
+                var pomocna = (osoba.Value.nameAndSurname);
+                string[] ImeIPrezime = pomocna.Split(" ");
+                ime.Add(ImeIPrezime[0]);
+
+            }
+            var najcesceIme = (from i in ime
+                               group i by i into grp
+                               orderby grp.Count() descending
+                               select grp.Key).First();
+            var koliko = 0;
+
+            foreach (var osoba in ime)
+            {
+                if (najcesceIme == osoba)
+                    koliko += 1;
+            }
+            string rezultat = najcesceIme + " " + koliko;
+
+            return rezultat;
+        }
+        static string NajcescePrezime(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var prezime = new List<string>();
+
+            foreach (var osoba in PopisStanovnika)
+            {
+
+                var pomocna = (osoba.Value.nameAndSurname);
+                string[] ImeIPrezime = pomocna.Split(" ");
+                prezime.Add(ImeIPrezime[1]);
+
+            }
+            var najcescePrezime = (from i in prezime
+                                   group i by i into grp
+                                   orderby grp.Count() descending
+                                   select grp.Key).First();
+            var koliko = 0;
+
+            foreach (var osoba in prezime)
+            {
+                if (najcescePrezime == osoba)
+                    koliko += 1;
+            }
+            string rezultat = najcescePrezime + " " + koliko;
+
+            return rezultat;
+        }
     }
 }
+
     
