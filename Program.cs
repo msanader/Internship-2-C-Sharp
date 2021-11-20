@@ -483,8 +483,12 @@ namespace Internship_2_C_Sharp
                             case 5:
                                 break;
                             case 6:
+                                Console.Clear();
+                                Console.WriteLine("Najmlađi stanovnik je " + NajmladiStanovnik(PopisStanovnika) + ".");
                                 break;
                             case 7:
+                                Console.Clear();
+                                Console.WriteLine("Najstariji stanovnik je " + NajstarijiStanovnik(PopisStanovnika) + ".");
                                 break;
                             case 8:
                                 Console.Clear();
@@ -694,6 +698,28 @@ namespace Internship_2_C_Sharp
             string rezultat = najcesciDatum.Day + "." + najcesciDatum.Month + "." + najcesciDatum.Year + "." + " " + koliko;
 
             return rezultat;
+        }
+        static string NajmladiStanovnik(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var stanovnici = new List<string>();
+
+            foreach (KeyValuePair<string, (string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika.OrderByDescending(p => p.Value.dateOfBirth))
+            {
+                stanovnici.Add(osoba.Value.nameAndSurname);
+            }
+
+            return stanovnici[0];
+        }
+        static string NajstarijiStanovnik(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var stanovnici = new List<string>();
+
+            foreach (KeyValuePair<string, (string nameAndSurname, DateTime dateOfBirth)> osoba in PopisStanovnika.OrderBy(p => p.Value.dateOfBirth))
+            {
+                stanovnici.Add(osoba.Value.nameAndSurname);
+            }
+
+            return stanovnici[0];
         }
     }
 }
