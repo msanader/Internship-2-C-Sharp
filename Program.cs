@@ -481,6 +481,17 @@ namespace Internship_2_C_Sharp
                                 Console.WriteLine(NajcesciDatum(PopisStanovnika));
                                 break;
                             case 5:
+                                Console.Clear();
+                            
+                                var Podatci = new List<(string godisnjeDoba, int brojStanovnika)>();
+                                Podatci = GodisnjaDoba(PopisStanovnika);
+                                Podatci = SortTuplesByItem2(Podatci);
+
+                                foreach (var podatak in Podatci)
+                                {
+                                    Console.WriteLine(podatak.godisnjeDoba + " " + podatak.brojStanovnika);
+                                }
+
                                 break;
                             case 6:
                                 Console.Clear();
@@ -643,7 +654,12 @@ namespace Internship_2_C_Sharp
                 if (najcesceIme == osoba)
                     koliko += 1;
             }
-            string rezultat = najcesceIme + " " + koliko;
+            string rezultat;
+
+            if (koliko > 1)
+                rezultat = najcesceIme + " " + koliko;
+            else
+                rezultat = "Nema najčešćeg imena!";
 
             return rezultat;
         }
@@ -670,7 +686,12 @@ namespace Internship_2_C_Sharp
                 if (najcescePrezime == osoba)
                     koliko += 1;
             }
-            string rezultat = najcescePrezime + " " + koliko;
+            string rezultat;
+
+            if (koliko > 1)
+                rezultat = najcescePrezime + " " + koliko;
+            else
+                rezultat = "Nema najčešćeg prezimena!";
 
             return rezultat;
         }
@@ -695,7 +716,12 @@ namespace Internship_2_C_Sharp
                 if (najcesciDatum == osoba)
                     koliko += 1;
             }
-            string rezultat = najcesciDatum.Day + "." + najcesciDatum.Month + "." + najcesciDatum.Year + "." + " " + koliko;
+            string rezultat;
+
+            if (koliko > 1)
+                rezultat = najcesciDatum.Day + "." + najcesciDatum.Month + "." + najcesciDatum.Year + "." + " " + koliko;
+            else
+                rezultat = "Nema najčešćeg datuma rođenja!";
 
             return rezultat;
         }
@@ -721,8 +747,64 @@ namespace Internship_2_C_Sharp
 
             return stanovnici[0];
         }
+        static List<(string godisnjeDoba, int brojStanovnika)> GodisnjaDoba(Dictionary<string, (string nameAndSurname, DateTime dateOfBirth)> PopisStanovnika)
+        {
+            var zima = 0;
+            var proljece = 0;
+            var ljeto = 0;
+            var jesen = 0;
+
+            foreach (var osoba in PopisStanovnika)
+            {
+                var pomocna = osoba.Value;
+                var datum = pomocna.dateOfBirth;
+
+                if ((datum.DayOfYear >= 80) && (datum.DayOfYear < 172))
+                    proljece += 1;
+                else if ((datum.DayOfYear >= 172) && (datum.DayOfYear < 266))
+                    ljeto += 1;
+                else if ((datum.DayOfYear >= 266) && (datum.DayOfYear < 355))
+                    jesen += 1;
+                else if ((datum.DayOfYear >= 355) || (datum.DayOfYear < 80))
+                    zima += 1;
+            }
+
+            var Podatci = new List<(string godisnjeDoba, int brojStanovnika)>();
+            Podatci.Add(("Zima", zima));
+            Podatci.Add(("Proljeće", proljece));
+            Podatci.Add(("Ljeto", ljeto));
+            Podatci.Add(("Jesen", jesen));
+
+
+            return Podatci;
+        }
+        static List<(string godisnjeDoba, int brojStanovnika)> SortTuplesByItem2(List<(string godisnjeDoba, int brojStanovnika)> Podatci)
+        {
+            var brojke = new List<int>();
+            var doba = (godisnjeDoba: "", brojStanovnika: 0);
+            var konacnaLista = new List<(string godisnjeDoba, int brojStanovnika)>();
+
+
+            foreach (var godisnjeDoba in Podatci)
+            {
+                brojke.Add(godisnjeDoba.brojStanovnika);
+            }
+
+            brojke.Sort();
+
+            foreach (var podatak in Podatci)
+            {
+                for (var i = 0; i < Podatci.Count; i++)
+                {
+                    if (brojke[i] == podatak.brojStanovnika)
+                        doba = (godisnjeDoba: podatak.godisnjeDoba, brojStanovnika: brojke[i]);
+                }
+                konacnaLista.Add(doba);
+            }
+            return konacnaLista;
+        }
     }
 }
 
 
-    
+
